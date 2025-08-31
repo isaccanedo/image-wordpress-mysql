@@ -18,13 +18,13 @@ Para usar esta configuração, você precisa ter o **Docker** e o **Docker Compo
 
 A estrutura de diretórios esperada é a seguinte:
 
+```
 .
 ├── docker-compose.yml
 └── wp-content/
+```
 
-yaml
-Copiar código
-
+```
 - **docker-compose.yml**: Arquivo principal que define os serviços (contêineres), redes e volumes.  
 - **wp-content/**: Diretório local mapeado para `/var/www/html/wp-content` dentro do contêiner do WordPress.  
   - Temas, plugins e uploads adicionados serão persistidos mesmo que o contêiner seja removido.
@@ -38,47 +38,62 @@ Copiar código
 ```bash
 git clone <URL_DO_SEU_REPOSITORIO>
 cd <nome_do_seu_diretorio>
-2. Iniciar os Contêineres
-bash
-Copiar código
+```
+
+### 2. Iniciar os Contêineres
+
+```
 docker compose up -d
+```
+
 docker compose up: Lê o docker-compose.yml, constrói as imagens (se necessário) e inicia os serviços.
 
 -d: Executa os contêineres em detached mode (segundo plano).
 
 Na primeira execução, o Docker fará o download das imagens mysql:8.0 e wordpress:latest.
 
-3. Acessar o WordPress
+### 3. Acessar o WordPress
+
 Abra no navegador:
 
-arduino
-Copiar código
+```
 http://localhost:8080
+```
+
 Na primeira vez, você será redirecionado para a página de instalação do WordPress.
 
-4. Gerenciar o Ambiente
+### 4. Gerenciar o Ambiente
+
 Verificar status dos contêineres:
 
-bash
-Copiar código
+```
 docker compose ps
+
+```
+
 Parar os contêineres:
 
-bash
-Copiar código
+```
 docker compose down
+
+```
+
 Este comando remove contêineres e rede, mas mantém volumes e dados.
 
 Parar e remover todos os dados (incluindo volumes):
 
-bash
-Copiar código
+```
 docker compose down --volumes
+
+```
+
 ⚠️ Atenção: Esse comando remove permanentemente os dados do banco (db_data) e arquivos do WordPress (wp-content).
 
 Detalhes da Configuração
+```
 Serviços
 db
+
 Imagem: mysql:8.0
 
 container_name: wordpress-db
@@ -90,6 +105,7 @@ environment: Variáveis de ambiente para configurar o banco de dados.
 volumes: db_data para persistência dos dados.
 
 wordpress
+
 Imagem: wordpress:latest
 
 container_name: wordpress-app
@@ -107,12 +123,11 @@ db (garante que o banco suba primeiro)
 volumes: ./wp-content:/var/www/html/wp-content
 
 Volumes
+
 db_data: Volume nomeado gerenciado pelo Docker para persistência do MySQL.
+```
 
-bash
-Copiar código
+```
 docker volume ls
-yaml
-Copiar código
 
----
+```
