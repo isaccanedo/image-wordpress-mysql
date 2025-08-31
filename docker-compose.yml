@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: wordpress-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: senhadoadmin
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpressuser
+      MYSQL_PASSWORD: senhadousuario
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress-app
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpressuser
+      WORDPRESS_DB_PASSWORD: senhadousuario
+    depends_on:
+      - db
+    volumes:
+      - ./wp-content:/var/www/html/wp-content
+
+volumes:
+  db_data:
