@@ -1,4 +1,4 @@
-# Configuração do Ambiente WordPress com Docker Compose
+### Configuração do Ambiente WordPress com Docker Compose
 
 Este repositório contém uma configuração para iniciar um ambiente de desenvolvimento local do **WordPress** e **MySQL** usando o **Docker Compose**.  
 Isso permite que você tenha um ambiente de trabalho consistente e isolado, sem a necessidade de instalar o servidor web e o banco de dados diretamente em sua máquina.
